@@ -1,4 +1,4 @@
-import { StyleSheet, StatusBar, Platform } from "react-native";
+import { StyleSheet, StatusBar, Platform, Text, Button } from "react-native";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 
 import { NavigationContainer } from "@react-navigation/native";

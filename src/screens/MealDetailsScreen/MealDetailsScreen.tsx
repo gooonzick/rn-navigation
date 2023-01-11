@@ -1,11 +1,19 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {
+  Button,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import React, { useCallback, useLayoutEffect } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "src/types";
 import { MEALS } from "data/dummy-data";
 import MealDetails from "components/MealDetails";
 import Subtitle from "components/Subtitle";
 import List from "components/List/List";
+import IconButton from "components/IconButton";
 
 type Props = NativeStackScreenProps<RootStackParamList, "MealDetails">;
 
@@ -13,6 +21,18 @@ const MealDetailsScreen = ({ route, navigation }: Props) => {
   const {
     params: { mealId },
   } = route;
+
+  const onSave = useCallback(() => {
+    console.log("save");
+  }, []);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton icon="star" onPress={onSave} color="white" />
+      ),
+    });
+  }, []);
 
   const selectedMeal = MEALS.find((m) => m.id === mealId);
 
