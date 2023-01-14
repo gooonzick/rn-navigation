@@ -10,10 +10,16 @@ import {
 import CategoriesScreen from "./src/screens/CategoriesScreen";
 import MealsOverviewScreen from "./src/screens/MealsOverviewScreen";
 import MealDetailsScreen from "./src/screens/MealDetailsScreen";
+import FavoriteScreen from "./src/screens/FavoriteScreen";
 
 import { RootStackParamList } from "./src/types";
+import {
+  createDrawerNavigator,
+  DrawerNavigationOptions,
+} from "@react-navigation/drawer";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const Drawer = createDrawerNavigator();
 
 const screenOptions: NativeStackNavigationOptions = {
   headerStyle: {
@@ -24,6 +30,34 @@ const screenOptions: NativeStackNavigationOptions = {
     backgroundColor: "#3f2f25",
   },
 };
+const screenOptionDrawer: DrawerNavigationOptions = {
+  headerStyle: {
+    backgroundColor: "#351401",
+  },
+  headerTintColor: "white",
+  sceneContainerStyle: { backgroundColor: "#3f2f25" },
+  drawerContentStyle: {
+    backgroundColor: "#351401",
+  },
+  drawerActiveTintColor: "white",
+  drawerActiveBackgroundColor: "#e4baa1",
+  drawerInactiveTintColor: "white",
+};
+
+const DrawerNav = () => {
+  return (
+    <Drawer.Navigator screenOptions={screenOptionDrawer}>
+      <Drawer.Screen
+        name="CategoriesDrawer"
+        component={CategoriesScreen}
+        options={{
+          title: "Categories",
+        }}
+      />
+      <Drawer.Screen name="FavoriteDrawer" component={FavoriteScreen} />
+    </Drawer.Navigator>
+  );
+};
 
 export default function App() {
   return (
@@ -33,9 +67,10 @@ export default function App() {
         <Stack.Navigator screenOptions={screenOptions}>
           <Stack.Screen
             name="Categories"
-            component={CategoriesScreen}
+            component={DrawerNav}
             options={{
               title: "All Categories",
+              headerShown: false,
             }}
           />
           <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
@@ -44,7 +79,7 @@ export default function App() {
             component={MealDetailsScreen}
             options={({ navigation, route }) => {
               return {
-                title: route.params.title,
+                // title: route.params.title,
               };
             }}
           />
