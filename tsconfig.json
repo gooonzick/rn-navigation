@@ -5,7 +5,8 @@
       "components/*": ["src/components/*"],
       "screens/*": ["scr/screens/*"],
       "models/*": ["src/models/*"],
-      "data/*": ["src/data/*"]
+      "data/*": ["src/data/*"],
+      "store/*": ["src/store/*"]
     }
   },
   "extends": "expo/tsconfig.base"

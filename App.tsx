@@ -17,6 +17,7 @@ import {
   createDrawerNavigator,
   DrawerNavigationOptions,
 } from "@react-navigation/drawer";
+import FavoriteContextProvider from "./src/store/context";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator();
@@ -61,7 +62,7 @@ const DrawerNav = () => {
 
 export default function App() {
   return (
-    <>
+    <FavoriteContextProvider>
       <ExpoStatusBar style="light" />
       <NavigationContainer>
         <Stack.Navigator screenOptions={screenOptions}>
@@ -85,7 +86,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </FavoriteContextProvider>
   );
 }
 

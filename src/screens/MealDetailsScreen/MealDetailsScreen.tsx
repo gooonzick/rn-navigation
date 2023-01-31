@@ -1,11 +1,4 @@
-import {
-  Button,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Image, ScrollView, StyleSheet, Text } from "react-native";
 import React, { useCallback, useLayoutEffect } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "src/types";
@@ -14,6 +7,7 @@ import MealDetails from "components/MealDetails";
 import Subtitle from "components/Subtitle";
 import List from "components/List/List";
 import IconButton from "components/IconButton";
+import { useFavoriteIdsContext } from "store/context";
 
 type Props = NativeStackScreenProps<RootStackParamList, "MealDetails">;
 
@@ -22,17 +16,29 @@ const MealDetailsScreen = ({ route, navigation }: Props) => {
     params: { mealId },
   } = route;
 
+  const { ids, addFavorite, removeFavorite } = useFavoriteIdsContext();
+
+  const isMealFavorite = ids.includes(mealId);
+
   const onSave = useCallback(() => {
-    console.log("save");
-  }, []);
+    if (!isMealFavorite) {
+      addFavorite(mealId);
+    } else {
+      removeFavorite(mealId);
+    }
+  }, [mealId, isMealFavorite]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <IconButton icon="star" onPress={onSave} color="white" />
+        <IconButton
+          icon={isMealFavorite ? "star" : "star-outline"}
+          onPress={onSave}
+          color="white"
+        />
       ),
     });
-  }, []);
+  }, [onSave]);
 
   const selectedMeal = MEALS.find((m) => m.id === mealId);
 

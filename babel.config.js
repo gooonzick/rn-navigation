@@ -22,6 +22,7 @@ module.exports = function (api) {
             components: "./src/components",
             data: "./src/data",
             models: "./src/models",
+            store: "./src/store",
           },
         },
       ],
